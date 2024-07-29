@@ -6,6 +6,7 @@ editForm.addEventListener("submit", update);
 function update(e) {
     e.preventDefault();
     const closeButton = document.getElementById("closeEdit")
+    let id = editForm.elements.namedItem("id").value
     const rolesOption = editForm.elements.namedItem("roles");
     let selectedRoles = [];
     for (const rolesSelect of rolesOption) {
@@ -16,7 +17,7 @@ function update(e) {
             });
         }
     }
-    fetch('/users/', {
+    fetch('/users/' + id, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

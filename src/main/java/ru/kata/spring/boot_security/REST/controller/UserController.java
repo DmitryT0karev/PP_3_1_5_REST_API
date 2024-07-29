@@ -66,12 +66,23 @@ public class UserController {
     }
 
 
-    @PutMapping(value = "/users")
-    public ResponseEntity<?> update(@RequestBody @Valid User user, BindingResult bindingResult) {
+//    @PutMapping(value = "/users")
+//    public ResponseEntity<?> update(@RequestBody @Valid User user, BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//            return ResponseEntity.badRequest().body("Invalid user data");
+//        }
+//        userService.update(user);
+//        return ResponseEntity.ok(HttpStatus.OK);
+//    }
+
+    @PutMapping("/users/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") Long id,
+                                             @Valid @RequestBody User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body("Invalid user data");
         }
-        userService.update(user);
+        user.setId(id);
+        userService.update(id, user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
